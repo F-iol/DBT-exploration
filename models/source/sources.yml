@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: default
-    database: dbt
-    schema: default
+    database: '{{target.catalog}}'
+    schema: '{% if target.name == "prod" %}source{% else %}default{% endif %}'
     tables:
       - name: fact_sales
       - name: fact_returns
@@ -12,7 +12,7 @@ sources:
       - name: dim_date
       - name: dim_store
   - name: tables
-    database: dbt
-    schema: tables
+    database: '{{target.catalog}}'
+    schema: '{% if target.name == "prod" %}source{% else %}tables{% endif %}'
     tables:
       - name: items
